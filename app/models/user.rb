@@ -27,10 +27,27 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
   has_many :own_photos, class_name: "Photo", foreign_key: :owner_id
+
   has_many :comments, foreign_key: :author_id
+
   has_many :sent_follow_requests, foreign_key: :sender_id, class_name: "FollowRequest"
+
   has_many :received_follow_requests, foreign_key: :recipient_id, class_name: "FollowRequest"
 
+has_many :liked_photos, through: :likes, source: :photos
+
+
+has_many :accepted_sent_follow_requests, -> {where(status: "accepted")}, foreign_key: :sender_id, class_name: "FollowRequest"
+
+has_many :accepted_received_follow_requests, -> {where(status: "accepted")}, foreign_key: :recipient_id, class_name: "FollowRequest"
+
+has_many :leaders, through: :accepted_sent_follow_requests, source: :recipient
+
+has_many :followers, through: :accepted_received_follow_requests, source: :sender
+
+has_many :feed, through: :leaders, source: :own_photos
+has_many :discover, through: :leaders, source: :liked_photos
 
 end
