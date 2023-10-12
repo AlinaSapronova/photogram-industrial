@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_154139) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_160346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "photos", force: :cascade do |t|
+    t.string "image"
+    t.integer "comments_count", default: 0
+    t.integer "likes_count", default: 0
+    t.text "caption"
+    t.bigint "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_photos_on_owner_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.citext "email", default: "", null: false
@@ -32,4 +43,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_154139) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "photos", "users", column: "owner_id"
 end
