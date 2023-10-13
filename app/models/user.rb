@@ -28,8 +28,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :username, presence: true, uniqueness: true
-
   has_many :own_photos, class_name: "Photo", foreign_key: :owner_id
 
   has_many :comments, foreign_key: :author_id
@@ -51,5 +49,7 @@ has_many :followers, through: :accepted_received_follow_requests, source: :sende
 
 has_many :feed, through: :leaders, source: :own_photos
 has_many :discover, through: :leaders, source: :liked_photos
+
+validates :username, presence: true, uniqueness: true
 
 end
