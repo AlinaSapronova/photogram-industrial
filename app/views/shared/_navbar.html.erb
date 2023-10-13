@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-       <% if current_user != nil%>
+       <%# if current_user != nil%>
          
           <i class="fa-solid fa-people-group d-grid"> <%= link_to "Feed", photos_path, class: "nav-link active d-grid" %></i>
       
@@ -40,7 +40,7 @@
              <%= link_to "Sign out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
              </li>
 
-              <% else %>
+              <%# else %>
                <li class="nav-item">
                  <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
                 </li>
@@ -48,7 +48,7 @@
                 <li class="nav-item">
                    <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
                 </li>
-               <% end %>
+               <%# end %>
             </div>
           </li>
       </ul>
