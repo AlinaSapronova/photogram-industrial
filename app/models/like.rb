@@ -23,5 +23,5 @@ class Like < ApplicationRecord
   belongs_to :photo, counter_cache: true
   has_many :likes, foreign_key: :fan_id
 
-  validates :user_id, uniqueness: { scope: :photo_id, message: "has already liked this photo" }
+  #validates :user_id, uniqueness: { scope: :photo_id, message: "has already liked this photo" }
 end

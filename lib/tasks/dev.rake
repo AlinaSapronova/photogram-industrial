@@ -14,12 +14,13 @@ task({ :sample_data => :environment }) do
 
   12.times do
     name = Faker::Name.first_name
-    u = User.create(
+    user = User.create(
       email: "#{name}@example.com",
       password: "password",
       username: name,
       private: [true, false].sample,
     )
+    user.save
   end
 
   p "There are now #{User.count} users."
@@ -48,9 +49,12 @@ task({ :sample_data => :environment }) do
 
   users.each do |user|
     rand(15).times do
+      url = URI("https://api.thecatapi.com/v1/images/search")
+      raw_data = Net::HTTP.get(url)
+      parsed_data = JSON.parse(raw_data)
       photo = user.own_photos.create(
         caption: Faker::Quote.jack_handey,
-        image: "https://robohash.org/#{rand(9999)}"
+        image: @pic_url = parsed_data[0].fetch("url").to_s 
       )
 
       user.followers.each do |follower|
