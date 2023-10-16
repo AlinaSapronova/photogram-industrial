@@ -20,7 +20,7 @@ task({ :sample_data => :environment }) do
       email: "#{name}@example.com",
       password: "password",
       username: name.downcase,
-      private: [true, false].sample,
+      private: [true, false].sample
     )
   end
 
