@@ -16,7 +16,13 @@
   <body>
     <%= render partial: "shared/navbar" %>
      <div class="container mt-3">
-    <%= render partial: "shared/message" %>
+       <% if notice.present? %>
+        <%= render partial: "shared/message", locals: { message: notice, css_class: "success" } %>
+      <% end %>
+      
+      <% if alert.present? %>
+        <%= render partial: "shared/message", locals: { message: alert, css_class: "danger" } %>
+      <% end %>
     <%= yield %>
     </div>
   </body>
