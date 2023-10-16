@@ -2,15 +2,9 @@
 <html>
   <head>
     <title>Photogram Industrial</title>
+       <%= render partial: "shared/cdn_assets" %>
 
 <meta charset="utf-8">
-<!-- Connect Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
-<!-- Connect Bootstrap JavaScript and its dependencies -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Connect Font Awesome -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
-
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -21,8 +15,14 @@
 
   <body>
     <%= render partial: "shared/navbar" %>
-<div class="container mt-3">
-    <%= render partial: "shared/message" %>
+     <div class="container mt-3">
+       <% if notice.present? %>
+        <%= render partial: "shared/message", locals: { message: notice, css_class: "success" } %>
+      <% end %>
+      
+      <% if alert.present? %>
+        <%= render partial: "shared/message", locals: { message: alert, css_class: "danger" } %>
+      <% end %>
     <%= yield %>
     </div>
   </body>
